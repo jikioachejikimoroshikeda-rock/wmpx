@@ -1,35 +1,33 @@
 # WMP X — Windows Media Player Next
 
-WMP X es un reproductor de escritorio nativo creado con C# y WinUI 3 (Windows App SDK). Está diseñado para Windows; no es una aplicación web ni se ofrece soporte para Linux o macOS.
+WMP X es un reproductor de escritorio nativo para Windows, creado con C# y WinUI 3 (Windows App SDK). Incluye reproducción de audio local con el motor multimedia de Windows y una vista de vídeo basada en LibVLCSharp/libVLC para ampliar la compatibilidad con códecs y contenedores comunes. La compatibilidad real depende del códec, del archivo y de los módulos disponibles; ningún reproductor puede garantizar todos los formatos.
 
 ## Requisitos
 
 - Windows 10 versión 1809 (build 17763) o posterior.
 - .NET 8 SDK.
 - Visual Studio 2022 con la carga de trabajo **Desarrollo de aplicaciones de Windows** (recomendado).
+- Acceso a NuGet para restaurar Windows App SDK, LibVLCSharp y el runtime de libVLC.
 
-## Ejecutar desde Visual Studio
+## Ejecutar
 
-1. Abre `Wmpx.csproj` en Visual Studio 2022.
-2. Deja que NuGet restaure `Microsoft.WindowsAppSDK`.
-3. Selecciona la plataforma `x64` y pulsa **F5**.
-4. Pulsa **Abrir archivos de audio**, selecciona archivos locales y usa la lista y los controles para reproducirlos.
+1. Abre `Wmpx.csproj` en Visual Studio 2022 y deja que NuGet restaure los paquetes.
+2. Selecciona la plataforma `x64` y pulsa **F5**.
+3. Ve a **Vídeos**, pulsa **Abrir vídeos** y elige uno o varios archivos.
 
-## Ejecutar desde PowerShell
-
-En Windows con .NET 8 instalado, desde la carpeta del repositorio:
+También desde PowerShell en Windows:
 
 ```powershell
 dotnet restore .\Wmpx.csproj
 dotnet run --project .\Wmpx.csproj
 ```
 
-La aplicación usa el reproductor multimedia de Windows y actualmente admite audio local (MP3, WAV, M4A, WMA, AAC y FLAC). Algunas secciones de la interfaz son una base para futuras versiones.
+La vista de vídeo usa LibVLC/libVLCSharp y permite cargar una cola de archivos, seleccionar vídeos, reproducir/pausar, saltar entre elementos y buscar en la posición con la barra. El selector incluye contenedores habituales como MP4, MKV, AVI, MOV, WMV, FLV, WebM, MPEG, TS, OGV y 3GP. La extensión no garantiza que un archivo concreto pueda decodificarse.
+
+## Dependencias de terceros
+
+LibVLCSharp y los binarios de libVLC son componentes de terceros y conservan sus propias licencias, avisos y obligaciones de distribución. Consulta los metadatos de los paquetes NuGet y `THIRD-PARTY-NOTICES.md` antes de redistribuir la aplicación; esta licencia de WMP X no reemplaza ni restringe los derechos otorgados por esas licencias de terceros.
 
 ## Licencia y permisos
 
-El Material original de WMP X se ofrece bajo los términos de la [licencia propietaria](LICENSE), no bajo una licencia de código abierto para las versiones cubiertas por esos términos. No se concede permiso general para copiar, modificar, distribuir, incorporar ni explotar comercialmente el Material: solicita autorización escrita al titular antes de hacerlo.
-
-**Aviso sobre versiones anteriores:** una versión de este repositorio se publicó previamente con GPL-3.0. Esta licencia nueva no cancela permisos GPL ya concedidos para copias de esa versión; consulta la sección 4 de `LICENSE`. Las dependencias y demás materiales de terceros conservan sus licencias propias.
-
-La licencia personalizada no es asesoría legal. El titular debería confirmar que controla los derechos de cada contribución y consultar asesoría jurídica si necesita una licencia jurídicamente adaptada a su jurisdicción.
+El material original de WMP X se rige por la [licencia propietaria](LICENSE). Una versión anterior se publicó bajo GPL-3.0; esta nueva licencia no revoca los permisos que ya se concedieron para copias de aquella versión. Consulta la sección 4 de `LICENSE` y el texto de las licencias de terceros.
