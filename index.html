@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a2a">
+  <title>Windows Media Player Next</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="player-window">
+    <aside class="sidebar">
+      <a class="brand" href="#inicio" aria-label="Windows Media Player Next, inicio">
+        <span class="brand-mark"><span>▶</span></span>
+        <span class="brand-copy"><strong>Windows Media Player</strong><small>Next</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <button class="nav-item active" data-view="Inicio"><span class="nav-icon">⌂</span>Inicio</button>
+        <button class="nav-item" data-view="Música"><span class="nav-icon">♫</span>Música</button>
+        <button class="nav-item" data-view="Vídeos"><span class="nav-icon">▣</span>Vídeos</button>
+        <button class="nav-item" data-view="Podcasts"><span class="nav-icon">◉</span>Podcasts</button>
+        <button class="nav-item" data-view="Listas de reproducción"><span class="nav-icon">☷</span>Listas de reproducción</button>
+        <button class="nav-item" data-view="Biblioteca"><span class="nav-icon">▤</span>Biblioteca</button>
+      </nav>
+      <div class="recent-heading">Recientes</div>
+      <button class="recent-item" data-track="0"><span class="mini-cover cover-sunset"></span><span><strong>Lo mejor de hoy</strong><small>Lista de reproducción</small></span></button>
+      <button class="recent-item" data-view="Vídeos"><span class="mini-cover cover-film">✦</span><span><strong>Películas</strong><small>Vídeo</small></span></button>
+      <button class="recent-item" data-track="2"><span class="mini-cover cover-blue"></span><span><strong>Favoritos</strong><small>Lista de reproducción</small></span></button>
+      <div class="sidebar-bottom"><span class="status-dot"></span>Tu música, siempre contigo</div>
+    </aside>
+
+    <section class="main-area">
+      <header class="topbar">
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar música, vídeos y más..." aria-label="Buscar música, vídeos y más"></label>
+        <div class="window-actions"><button class="icon-button profile" aria-label="Perfil">♙</button><button class="icon-button" aria-label="Configuración">⚙</button><span class="window-control">−</span><span class="window-control">□</span><span class="window-control">×</span></div>
+      </header>
+      <div class="workspace">
+        <section class="now-playing" aria-label="Reproductor">
+          <div class="ambient-glow"></div>
+          <div class="album-art" role="img" aria-label="Portada del álbum A Higher Place">
+            <svg viewBox="0 0 600 600" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#76a9e4"/><stop offset=".48" stop-color="#f5b5aa"/><stop offset="1" stop-color="#f5d6bd"/></linearGradient>
+                <linearGradient id="lake" x2="0" y2="1"><stop stop-color="#537fa5"/><stop offset="1" stop-color="#092a4b"/></linearGradient>
+                <linearGradient id="mountain" x2="0" y2="1"><stop stop-color="#567da0"/><stop offset="1" stop-color="#142d49"/></linearGradient>
+              </defs>
+              <rect width="600" height="600" fill="url(#sky)"/>
+              <circle cx="440" cy="200" r="93" fill="#ffe3c8" opacity=".24"/>
+              <path d="M0 337 93 227l46 58 86-124 92 133 68-96 109 122 42-49 64 79v90H0Z" fill="#d5d9de" opacity=".66"/>
+              <path d="m0 356 103-114 54 68 87-153 96 154 71-104 93 120 48-57 48 69v98H0Z" fill="url(#mountain)"/>
+              <path d="m244 157 39 64-37-15-30 20Zm167 50 42 60-36-16-26 16Z" fill="#f2e7df" opacity=".9"/>
+              <rect y="415" width="600" height="185" fill="url(#lake)"/>
+              <path d="M0 431q100 12 200 0t200 0 200 0M0 469q120 13 230 1t370 3M0 525q130 8 250-1t350 2M0 568q160 11 300 0t300 1" fill="none" stroke="#b6d1df" stroke-opacity=".35" stroke-width="3"/>
+              <text x="300" y="302" text-anchor="middle" fill="#123d6b" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="11">A HIGHER PLACE</text>
+              <text x="300" y="345" text-anchor="middle" fill="#496889" font-family="Arial,sans-serif" font-size="13" letter-spacing="9">S O U N D S C A P E</text>
+            </svg>
+          </div>
+          <div class="track-info"><h1 id="track-title">A Brighter Day</h1><p id="track-artist">Soundscape</p><p class="album-name">A Higher Place <span>•</span> 2024</p></div>
+          <button class="favorite-button" id="favorite" aria-label="Añadir a favoritos">♡</button>
+          <button class="more-button" aria-label="Más opciones">•••</button>
+          <div class="timeline"><span id="elapsed">1:42</span><input id="progress" type="range" min="0" max="245" value="102" aria-label="Posición de reproducción"><span id="duration">4:05</span></div>
+          <div class="transport">
+            <button class="player-button subtle" id="shuffle" aria-label="Reproducción aleatoria">⤨</button>
+            <button class="player-button" id="previous" aria-label="Anterior">|◀</button>
+            <button class="play-button" id="play" aria-label="Pausar">Ⅱ</button>
+            <button class="player-button" id="next" aria-label="Siguiente">▶|</button>
+            <button class="player-button subtle" id="repeat" aria-label="Repetir">⟳</button>
+          </div>
+        </section>
+
+        <aside class="queue-panel">
+          <div class="tabs" role="tablist" aria-label="Panel lateral">
+            <button class="tab active" data-tab="Lista" role="tab">Lista</button><button class="tab" data-tab="Letras" role="tab">Letras</button><button class="tab" data-tab="Información" role="tab">Información</button>
+          </div>
+          <div id="panel-content">
+            <div class="queue-heading"><h2>A Higher Place</h2><p>Soundscape <span>•</span> 2024</p></div>
+            <ol class="track-list" id="track-list"></ol>
+            <div class="up-next"><button class="up-next-title" id="up-next"><span>Siguiente en la reproducción</span><span>⌃</span></button><div id="up-next-list"></div></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="promo"><span class="promo-mark"><span>▶</span></span><div class="promo-copy"><strong>Más música. Más momentos.</strong><span>Descubre, reproduce y disfruta todo tu contenido en un solo lugar.</span></div><button class="store-button"><span>▣</span>Explorar más en Microsoft Store</button></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
