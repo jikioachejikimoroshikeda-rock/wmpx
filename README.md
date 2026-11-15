@@ -1,33 +1,24 @@
 # WMP X — Windows Media Player Next
 
-WMP X es un reproductor de escritorio nativo para Windows, creado con C# y WinUI 3 (Windows App SDK). Incluye reproducción de audio local con el motor multimedia de Windows y una vista de vídeo basada en LibVLCSharp/libVLC para ampliar la compatibilidad con códecs y contenedores comunes. La compatibilidad real depende del códec, del archivo y de los módulos disponibles; ningún reproductor puede garantizar todos los formatos.
+WMP X es un reproductor de escritorio nativo para Windows, creado con C# y WinUI 3 (Windows App SDK). Incluye reproducción de audio local y un reproductor de vídeo LibVLC para ampliar la compatibilidad con códecs y contenedores comunes.
 
-## Requisitos
+## Requisitos y ejecución
 
-- Windows 10 versión 1809 (build 17763) o posterior.
-- .NET 8 SDK.
-- Visual Studio 2022 con la carga de trabajo **Desarrollo de aplicaciones de Windows** (recomendado).
-- Acceso a NuGet para restaurar Windows App SDK, LibVLCSharp y el runtime de libVLC.
+- Windows 10 versión 1809 o posterior, .NET 8 SDK y Visual Studio 2022 con **Desarrollo de aplicaciones de Windows**.
+- Abre `Wmpx.csproj`, restaura paquetes NuGet, selecciona `x64` y pulsa **F5**.
+- O ejecuta `dotnet restore .\Wmpx.csproj` y `dotnet run --project .\Wmpx.csproj` desde PowerShell.
+- Ve a **Vídeos → Abrir vídeos** para cargar una cola.
 
-## Ejecutar
+## Controles de vídeo
 
-1. Abre `Wmpx.csproj` en Visual Studio 2022 y deja que NuGet restaure los paquetes.
-2. Selecciona la plataforma `x64` y pulsa **F5**.
-3. Ve a **Vídeos**, pulsa **Abrir vídeos** y elige uno o varios archivos.
+- Reproducir/pausar y saltar a anterior/siguiente con los controles principales.
+- Barra de progreso con posición y duración; puedes arrastrarla para buscar.
+- Volumen y silencio compartidos entre el reproductor de audio y vídeo.
+- Pantalla completa desde el icono en la superposición del vídeo; el mismo botón permite volver.
+- Carga de subtítulos externos `.srt`, `.ass`, `.ssa`, `.vtt` y `.sub` para el vídeo actual.
 
-También desde PowerShell en Windows:
+LibVLC puede reproducir muchos formatos habituales, pero la compatibilidad depende de los códecs, del archivo y del runtime incluido; no se garantiza que todos los archivos sean reproducibles.
 
-```powershell
-dotnet restore .\Wmpx.csproj
-dotnet run --project .\Wmpx.csproj
-```
+## Componentes y licencias
 
-La vista de vídeo usa LibVLC/libVLCSharp y permite cargar una cola de archivos, seleccionar vídeos, reproducir/pausar, saltar entre elementos y buscar en la posición con la barra. El selector incluye contenedores habituales como MP4, MKV, AVI, MOV, WMV, FLV, WebM, MPEG, TS, OGV y 3GP. La extensión no garantiza que un archivo concreto pueda decodificarse.
-
-## Dependencias de terceros
-
-LibVLCSharp y los binarios de libVLC son componentes de terceros y conservan sus propias licencias, avisos y obligaciones de distribución. Consulta los metadatos de los paquetes NuGet y `THIRD-PARTY-NOTICES.md` antes de redistribuir la aplicación; esta licencia de WMP X no reemplaza ni restringe los derechos otorgados por esas licencias de terceros.
-
-## Licencia y permisos
-
-El material original de WMP X se rige por la [licencia propietaria](LICENSE). Una versión anterior se publicó bajo GPL-3.0; esta nueva licencia no revoca los permisos que ya se concedieron para copias de aquella versión. Consulta la sección 4 de `LICENSE` y el texto de las licencias de terceros.
+LibVLCSharp y libVLC son componentes de terceros y conservan sus licencias y obligaciones independientes. Revisa `THIRD-PARTY-NOTICES.md` y los avisos incluidos con los paquetes antes de redistribuir. El Material original de WMP X está cubierto por la licencia de `LICENSE`; los permisos GPL previamente concedidos para versiones anteriores no se revocan.

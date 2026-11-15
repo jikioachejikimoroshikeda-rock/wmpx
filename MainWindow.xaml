@@ -5,7 +5,7 @@
     xmlns:lvs="using:LibVLCSharp.Platforms.Windows"
     Title="WMP X — Windows Media Player Next">
     <Grid x:Name="RootLayout" Background="#101A2A">
-        <Grid.ColumnDefinitions><ColumnDefinition Width="238"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions><ColumnDefinition x:Name="SidebarColumn" Width="238"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
         <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="76"/></Grid.RowDefinitions>
 
         <Border x:Name="SidebarPanel" Grid.Column="0" Background="#172438">
@@ -53,7 +53,7 @@
                         <TextBlock x:Name="TrackTitle" Text="Selecciona música para empezar" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                         <TextBlock x:Name="TrackArtist" Text="Tu biblioteca" FontSize="14" Foreground="#B8C5D6" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <Grid x:Name="VideoContent" Visibility="Collapsed" Background="Black" CornerRadius="12">
+                    <Grid x:Name="VideoContent" Visibility="Collapsed" Background="Black" CornerRadius="12" Loaded="VideoContent_Loaded">
                         <lvs:VideoView x:Name="VideoSurface"/>
                         <StackPanel x:Name="VideoEmptyState" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12" Background="#C0101A2A" Padding="24" CornerRadius="12">
                             <SymbolIcon Symbol="Video" Width="34" Height="34" HorizontalAlignment="Center"/>
@@ -61,15 +61,30 @@
                             <TextBlock Text="MP4 · MKV · AVI · MOV · WebM y más" FontSize="12" Foreground="#B8C5D6" HorizontalAlignment="Center"/>
                             <Button Click="OpenMedia_Click" HorizontalAlignment="Center"><StackPanel Orientation="Horizontal" Spacing="8"><SymbolIcon Symbol="OpenFile"/><TextBlock Text="Abrir vídeos" VerticalAlignment="Center"/></StackPanel></Button>
                         </StackPanel>
+                        <Grid x:Name="VideoOverlay" VerticalAlignment="Bottom" Background="#D0101724" Padding="14,8">
+                            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                            <Grid Grid.Row="0" ColumnSpacing="8"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock x:Name="VideoTitleText" Text="WMP X · Vídeo" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                <Button Grid.Column="1" Click="OpenSubtitle_Click" Background="Transparent" ToolTipService.ToolTip="Cargar subtítulos"><StackPanel Orientation="Horizontal" Spacing="6"><SymbolIcon Symbol="Caption"/><TextBlock Text="Subtítulos" VerticalAlignment="Center"/></StackPanel></Button>
+                                <Button Grid.Column="2" Click="Fullscreen_Click" Background="Transparent" ToolTipService.ToolTip="Pantalla completa"><SymbolIcon x:Name="FullscreenIcon" Symbol="FullScreen"/></Button>
+                            </Grid>
+                            <Grid Grid.Row="1" ColumnSpacing="8" Margin="0,4,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock x:Name="VideoElapsedText" Text="0:00" FontSize="10" Foreground="#E5EAF2" VerticalAlignment="Center"/>
+                                <Slider x:Name="VideoProgressSlider" Grid.Column="1" Minimum="0" Maximum="1" ValueChanged="VideoProgressSlider_ValueChanged" VerticalAlignment="Center" Foreground="{StaticResource AccentBrush}"/>
+                                <TextBlock x:Name="VideoDurationText" Grid.Column="2" Text="0:00" FontSize="10" Foreground="#E5EAF2" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <TextBlock x:Name="StatusText" Grid.Row="1" Text="Abre archivos de audio de tu PC para reproducirlos" HorizontalAlignment="Center" Foreground="#B8C5D6" Margin="0,0,0,12"/>
-                    <Grid Grid.Row="2" ColumnSpacing="10"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock x:Name="ElapsedText" Text="0:00" VerticalAlignment="Center" FontSize="11" Foreground="#B8C5D6"/><Slider x:Name="PositionSlider" Grid.Column="1" Minimum="0" Maximum="100" ValueChanged="PositionSlider_ValueChanged" VerticalAlignment="Center"/><TextBlock x:Name="DurationText" Grid.Column="2" Text="0:00" VerticalAlignment="Center" FontSize="11" Foreground="#B8C5D6"/></Grid>
-                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12" Margin="0,8,0,0">
+                    <Grid Grid.Row="2" ColumnSpacing="10"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock x:Name="ElapsedText" Text="0:00" VerticalAlignment="Center" FontSize="11" Foreground="#B8C5D6"/><Slider x:Name="PositionSlider" Grid.Column="1" Minimum="0" Maximum="100" ValueChanged="PositionSlider_ValueChanged" VerticalAlignment="Center" Foreground="{StaticResource AccentBrush}"/><TextBlock x:Name="DurationText" Grid.Column="2" Text="0:00" VerticalAlignment="Center" FontSize="11" Foreground="#B8C5D6"/></Grid>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8" Margin="0,8,0,0">
                         <Button x:Name="ShuffleButton" Click="Shuffle_Click" ToolTipService.ToolTip="Aleatorio" Background="Transparent"><SymbolIcon Symbol="Shuffle"/></Button>
                         <Button Click="Previous_Click" ToolTipService.ToolTip="Anterior" Background="Transparent"><SymbolIcon Symbol="Previous"/></Button>
-                        <Button x:Name="PlayPauseButton" Click="PlayPause_Click" ToolTipService.ToolTip="Reproducir o pausar" Background="{StaticResource AccentBrush}" CornerRadius="28" Width="54" Height="54"><SymbolIcon Symbol="Play"/></Button>
+                        <Button x:Name="PlayPauseButton" Click="PlayPause_Click" ToolTipService.ToolTip="Reproducir o pausar" Background="{StaticResource AccentBrush}" CornerRadius="28" Width="50" Height="50"><SymbolIcon Symbol="Play"/></Button>
                         <Button Click="Next_Click" ToolTipService.ToolTip="Siguiente" Background="Transparent"><SymbolIcon Symbol="Next"/></Button>
                         <Button x:Name="RepeatButton" Click="Repeat_Click" ToolTipService.ToolTip="Repetir" Background="Transparent"><SymbolIcon Symbol="RepeatAll"/></Button>
+                        <Button x:Name="MuteButton" Click="Mute_Click" ToolTipService.ToolTip="Silenciar o activar sonido" Background="Transparent"><SymbolIcon x:Name="MuteIcon" Symbol="Volume"/></Button>
+                        <Slider x:Name="VolumeSlider" Width="96" Minimum="0" Maximum="100" Value="80" ValueChanged="VolumeSlider_ValueChanged" VerticalAlignment="Center" ToolTipService.ToolTip="Volumen"/>
                     </StackPanel>
                 </Grid>
                 <Border x:Name="QueuePanel" Grid.Column="1" Background="#19283B" CornerRadius="16" Padding="12" BorderBrush="#20FFFFFF" BorderThickness="1">
